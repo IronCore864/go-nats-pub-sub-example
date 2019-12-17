@@ -22,6 +22,4 @@ func main() {
 	if err == nil {
 		fmt.Println("Everything has been processed by the server for nc *Conn.")
 	}
-
-	nc.Close()
 }

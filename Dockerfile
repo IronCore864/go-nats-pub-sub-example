@@ -4,7 +4,7 @@ COPY ./go-nats-pub/main.go .
 RUN go get ./... && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o /pub .
 WORKDIR ../sub
 COPY ./go-nats-sub/main.go .
-RUN go get ./... && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o /sub .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o /sub .
 
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates

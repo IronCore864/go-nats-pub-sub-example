@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"runtime"
 
@@ -17,7 +18,12 @@ func main() {
 	nc.Subscribe("foo", func(m *nats.Msg) {
 		fmt.Printf("Received a message: %s\n", string(m.Data))
 	})
-	nc.Flush()
 	fmt.Println("Subscribed to one topic!")
+	nc.Flush()
+
+	if err := nc.LastError(); err != nil {
+		log.Fatal(err)
+	}
+
 	runtime.Goexit()
 }
