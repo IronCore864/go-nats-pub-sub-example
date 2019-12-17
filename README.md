@@ -12,11 +12,16 @@ cd ../go-nats-sub && go build .
 ## Run
 
 ```
+export USER=xxx
+export PASS=yyy
+export NATS_HOST=zzz(only host name here, no protocol, no port)
 cd go-nats-sub && ./go-nats-sub
 ```
 
 In another terminal:
 ```
+export USER=xxx
+export PASS=yyy
 cd go-nats-pub && ./go-nats-pub
 ```
 
