@@ -9,8 +9,19 @@ import (
 
 func main() {
 	natsConnectionURL := fmt.Sprintf("nat://%s:4222", os.Getenv("NATS_HOST"))
+
 	nc, _ := nats.Connect(natsConnectionURL, nats.UserInfo(os.Getenv("USER"), os.Getenv("PASS")))
-	nc.Publish("foo", []byte("Hello World"))
-	fmt.Println("Published one message!")
+	defer nc.Close()
+
+	for i := 1; i <= 10; i++ {
+		content := fmt.Sprintf("Hello World %d", i)
+		nc.Publish("foo", []byte(content))
+		fmt.Println("Published one message! ", content)
+	}
+	err := nc.Flush()
+	if err == nil {
+		fmt.Println("Everything has been processed by the server for nc *Conn.")
+	}
+
 	nc.Close()
 }
